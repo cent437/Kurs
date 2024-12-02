@@ -66,7 +66,7 @@ void print_list(adjacency_list l) {
     cout << endl;
   }
 }
-int minDistance(vector<int> dist, vector<int> visited, int V) {
+int minDistance(vector<unsigned> dist, vector<unsigned> visited, int V) {
   int min = INF, min_index;
   for (int i = 0; i < V; i++) {
     if (visited[i] == 0 and dist[i] <= min) {
@@ -92,8 +92,8 @@ void DKP(matrix G, int start, int V) {
     cout << "Вершины " << V << " не существует.";
     return;
   }
-  vector<int> dist(V + 1);
-  vector<int> visited(V + 1);
+  vector<unsigned> dist(V + 1);
+  vector<unsigned> visited(V + 1);
   vector<int> parent(V + 1);
   for (int i = 0; i < V; i++) {
     dist[i] = INF;
