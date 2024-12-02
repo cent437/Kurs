@@ -18,5 +18,7 @@ extern void print_matrix(matrix G);
 /* Печать списка смежности. */
 extern void print_list(adjacency_list l);
 
+extern void DKP(matrix G, int start, int V);
+
 } // namespace Graph
 namespace algorithm {}
