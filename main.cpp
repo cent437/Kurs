@@ -8,9 +8,10 @@ using std::endl;
 
 int main() {
   int size, start, V;
+  bool ui_flag = true;
   cout << "Введите размер матрицы смежности: ";
   cin >> size;
-  std::vector<unsigned> dist(size);
+  std::vector<int> dist(size);
   matrix G = generate_adjacency_matrix(size);
   adjacency_list l = generate_adjacency_list(G);
 
@@ -18,10 +19,19 @@ int main() {
   print_matrix(G);
   cout << "Список смежности для графа G:" << endl;
   print_list(l);
-  cout << "Введите стартовую вершину: ";
-  cin >> start;
-  cout << "\nВведите конечную вершину: ";
-  cin >> V;
-  DKP(G, start - 1, V - 1);
+  while (ui_flag) {
+    cout << "Введите стартовую вершину: ";
+    cin >> start;
+    if (start > G.size() or start < 0) {
+      cout << "Вершина " << start << " не входит в граф G." << endl;
+      continue;
+    }
+    DKP(G, start - 1);
+    cout << "\n1. Выполнить заново." << endl;
+    cout << "0. Завершить программу." << endl;
+    cout << "-> ";
+    cin >> ui_flag;
+  }
+
   return 0;
 }

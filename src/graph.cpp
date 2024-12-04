@@ -1,4 +1,3 @@
-
 #include <climits>
 #include <cmath>
 #include <cstdio>
@@ -15,11 +14,12 @@ using std::vector;
 using matrix = vector<vector<int>>;
 using adjacency_list = vector<list<int>>;
 
-bool GreaterThanZero(int a, int b) { return a > b; }
 namespace Graph {
 
 matrix generate_adjacency_matrix(int size) {
-  srand(time(NULL));
+
+  srand(1733316677);
+
   /* Создание двумерного вектора. */
   matrix G(size, vector<int>(size));
   for (int i = 0; i < size; i++) {
@@ -66,58 +66,56 @@ void print_list(adjacency_list l) {
     cout << endl;
   }
 }
-int minDistance(vector<unsigned> dist, vector<unsigned> visited, int V) {
-  int min = INF, min_index;
-  for (int i = 0; i < V; i++) {
-    if (visited[i] == 0 and dist[i] <= min) {
-      min = dist[i];
+
+int min_dist(vector<int> U) {
+  int min_index = 0;
+  int min_weight = U[0];
+  for (int i = 0; i < U.size(); i++) {
+    if (min_weight > U[i] and U[i] > 0) {
+      min_weight = U[i];
+      min_index = i;
+    } else if (min_weight < U[i]) {
+      min_weight = U[i];
       min_index = i;
     }
   }
   return min_index;
 }
-void printPath(vector<int> parent, int j) {
-  if (parent[j] == -1)
-    return;
+void DKP(matrix G, int start) {
 
-  printPath(parent, parent[j]);
-  cout << " " << j;
-}
-void DKP(matrix G, int start, int V) {
-  if (start > G.size() or start < 0) {
-    cout << "Вершины " << start << "не существует.";
-    return;
-  }
-  if (V > G.size() or V < 0) {
-    cout << "Вершины " << V << " не существует.";
-    return;
-  }
-  vector<unsigned> dist(V + 1);
-  vector<unsigned> visited(V + 1);
-  vector<int> parent(V + 1);
-  for (int i = 0; i < V; i++) {
+  vector<unsigned> dist(G.size()); /* Вектор кратчайших путей. */
+  vector<int> visited(0); /* Вектор посещенных вершин. */
+  vector<int> U(0); /* Вектор непосещенных вершин. */
+  for (int i = 0; i < G.size(); i++) {
     dist[i] = INF;
-    visited[i] = 0;
-    parent[i] = -1;
   }
+  for (int i = 0; i < G.size(); i++) {
+    U.push_back(G[start][i]);
+  }
+  // visited.push_back(start);
   dist[start] = 0;
-  for (int i = 0; i < V; i++) {
-    int u = minDistance(dist, visited, V);
-    visited[u] = 1;
+  int u = start;
 
-    for (int v = 0; v < V; v++) {
-      if (!visited[v] and G[u][v] and dist[u] != INT_MAX and
-          dist[u] + G[u][v] < dist[v]) {
-        dist[v] = dist[u] + G[u][v];
-        parent[v] = u;
+  int end_flag = INT_MAX;
+  while (end_flag > 0) {
+    end_flag = 0;
+    visited.push_back(u);
+    for (int w = 0; w < G.size(); w++) {
+      if (dist[w] > dist[u] + G[u][w] and G[u][w] > 0) { // dist[u] + G[u][w]
+        dist[w] = dist[u] + G[u][w];                     // dist[u] + G[u][w]
       }
+      end_flag += U[w];
     }
+    U[u] = 0;
+    u = min_dist(U);
   }
-
-  printf("Вершина \t Расстояние от источника \t Путь");
-  for (int i = 0; i < V; i++) {
-    printf("\n%d -> %d \t\t %d \t\t\t\t ", start + 1, i + 1, dist[i]);
-    printPath(parent, i);
+  cout << "Вектор кратчайших путей от вершины " << start + 1
+       << " до всех остальных:" << endl;
+  for (int i = 0; i < G.size(); i++)
+    cout << i + 1 << '\t';
+  cout << endl;
+  for (auto i : dist) {
+    cout << i << '\t';
   }
 }
 } // namespace Graph
