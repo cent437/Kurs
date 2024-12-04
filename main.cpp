@@ -13,12 +13,8 @@ int main() {
   cin >> size;
   std::vector<int> dist(size);
   matrix G = generate_adjacency_matrix(size);
-  adjacency_list l = generate_adjacency_list(G);
-
   cout << "Матрица смежности для графа G:" << endl;
   print_matrix(G);
-  cout << "Список смежности для графа G:" << endl;
-  print_list(l);
   while (ui_flag) {
     cout << "Введите стартовую вершину: ";
     cin >> start;
@@ -29,7 +25,7 @@ int main() {
     DKP(G, start - 1);
     cout << "\n1. Выполнить заново." << endl;
     cout << "0. Завершить программу." << endl;
-    cout << "-> ";
+    cout << "> ";
     cin >> ui_flag;
   }
 
