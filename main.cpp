@@ -18,7 +18,7 @@ int main() {
   while (ui_flag) {
     cout << "Введите стартовую вершину: ";
     cin >> start;
-    if (start > G.size() or start < 0) {
+    if (start > G.size() or start <= 0) {
       cout << "Вершина " << start << " не входит в граф G." << endl;
       continue;
     }
