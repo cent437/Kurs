@@ -63,7 +63,6 @@ int min_dist(vector<int> U) {
 void DKP(matrix G, int start) {
 
   vector<int> dist(G.size()); /* Вектор кратчайших путей. */
-  vector<int> visited(0); /* Вектор посещенных вершин. */
   vector<int> U(0); /* Вектор непосещенных вершин. */
 
   /* Инициализация векторов. */
@@ -76,7 +75,6 @@ void DKP(matrix G, int start) {
   int end_flag = INT_MAX;
   while (end_flag > 0) {
     end_flag = 0;
-    visited.push_back(u);
     for (int w = 0; w < G.size(); w++) {
       if (dist[w] > dist[u] + G[u][w] and G[u][w] > 0)
         dist[w] = dist[u] + G[u][w];
