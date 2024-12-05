@@ -7,7 +7,7 @@ using std::cout;
 using std::endl;
 
 int main() {
-  int size, start, V;
+  int size, start;
   bool ui_flag = true;
   cout << "Введите размер матрицы смежности: ";
   cin >> size;
