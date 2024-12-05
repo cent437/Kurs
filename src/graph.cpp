@@ -6,7 +6,7 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
-#define INF UINT_MAX
+#define INF INT_MAX
 using std::cout;
 using std::endl;
 using std::vector;
@@ -45,21 +45,24 @@ void print_matrix(matrix G) {
 /* Функция поиска вершины с минимальным расстоянием до стартовой. */
 int min_dist(vector<int> U) {
   int min_index = 0;
-  int min_weight = U[0];
-  for (int i = 0; i < U.size(); i++) {
-    if (min_weight > U[i] and U[i] > 0) {
+  int min_weight = INT_MAX;
+  /* Поиск минимального значения в векторе. */
+  for (int i = 0; i < U.size(); i++)
+    if (min_weight > U[i] and U[i] > 0)
       min_weight = U[i];
+
+  /* Поиск индекса минимального элемента в векторе. */
+  for (int i = 0; i < U.size(); i++)
+    if (U[i] == min_weight) {
       min_index = i;
-    } else if (min_weight < U[i]) {
-      min_weight = U[i];
-      min_index = i;
+      break;
     }
-  }
+
   return min_index;
 }
 void DKP(matrix G, int start) {
 
-  vector<unsigned> dist(G.size()); /* Вектор кратчайших путей. */
+  vector<int> dist(G.size()); /* Вектор кратчайших путей. */
   vector<int> visited(0); /* Вектор посещенных вершин. */
   vector<int> U(0); /* Вектор непосещенных вершин. */
 
