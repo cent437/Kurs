@@ -37,7 +37,7 @@ int main() {
     cout << "0. Завершить программу." << endl;
     cout << "> ";
     cin >> ui_flag;
-    while (ui_flag > 1 || ui_flag < 0 || cin.fail()) {
+    while (ui_flag > 1 || cin.fail()) {
       cout << "Некорректный ввод, повторите попытку. " << endl;
       cin.clear();
       cin.ignore();

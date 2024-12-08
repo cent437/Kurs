@@ -5,7 +5,7 @@ using matrix = std::vector<std::vector<int>>;
 
 namespace Graph {
 
-/* Создание матрицы смежности для невзвешенного графа. */
+/* Создание матрицы смежности. */
 extern matrix generate_adjacency_matrix(int size);
 
 /* Печать матрицы. */
