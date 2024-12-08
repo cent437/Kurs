@@ -11,14 +11,16 @@ int main() {
   int size = 0, start;
   unsigned ui_flag = 1;
   cout << "Введите размер матрицы смежности: ";
-  for (; cin.fail() || size <= 0 || size >= INT_MAX;) {
-    cin >> size;
-    cout << "Некорректный ввод, повторите попытку: " << endl;
-    cin.clear();
-    cin.ignore();
-    cout << "> ";
+  cin >> size;
+  if (cin.fail() || size <= 0 || size >= INT_MAX) {
+    for (; cin.fail() || size <= 0 || size >= INT_MAX;) {
+      cout << "Некорректный ввод, повторите попытку: " << endl;
+      cin.clear();
+      cin.ignore();
+      cout << "> ";
+      cin >> size;
+    }
   }
-
   std::vector<int> dist(size);
   matrix G = generate_adjacency_matrix(size);
   cout << "Матрица смежности для графа G:" << endl;
