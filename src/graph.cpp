@@ -61,9 +61,9 @@ int min_dist(vector<int> U) {
 }
 void DKP(matrix G, int start) {
 
-  vector<int> dist(G.size()); /* Вектор кратчайших путей. */
+  vector<int> dist(G.size()); /* Вектор кратчайших расстояний. */
   vector<int> U(0); /* Вектор непосещенных вершин. */
-
+  matrix ways(G.size(), vector<int>(0)); /* Матрица кратчайших путей*/
   /* Инициализация векторов. */
   for (int i = 0; i < G.size(); i++) {
     dist[i] = INF;
@@ -75,8 +75,11 @@ void DKP(matrix G, int start) {
   while (end_flag > 0) {
     end_flag = 0;
     for (int w = 0; w < G.size(); w++) {
-      if (dist[w] > dist[u] + G[u][w] and G[u][w] > 0)
+      if (dist[w] > dist[u] + G[u][w] and G[u][w] > 0) {
         dist[w] = dist[u] + G[u][w];
+        ways[w].push_back(u);
+      }
+
       end_flag += U[w];
     }
 
@@ -92,5 +95,13 @@ void DKP(matrix G, int start) {
 
   for (auto i : dist)
     cout << i << '\t';
+  cout << "\nМатрица кратчайших путей:" << endl;
+  for (int i = 0; i < ways.size(); i++) {
+    cout << "Кратчайший путь до " << i + 1 << "вершины. ";
+    for (auto j : ways[i]) {
+      cout << j + 1 << ' ';
+    }
+    cout << endl;
+  }
 }
 } // namespace Graph
